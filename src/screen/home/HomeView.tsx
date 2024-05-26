@@ -1,17 +1,15 @@
-import {Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {SearchBar} from "../../components/searchBar/SearchBar.tsx";
 
 export const HomeView = () => (
-  <View>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
-      <Text>HOMEEE</Text>
+  <View style={styles.homeView}>
+    <SearchBar />
   </View>
 );
+
+const styles = StyleSheet.create({
+  homeView: {
+    paddingHorizontal: 30,
+    paddingTop: 30,
+  },
+});

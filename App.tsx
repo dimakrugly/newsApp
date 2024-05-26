@@ -2,7 +2,7 @@ import React from 'react';
 import {
   SafeAreaView,
   StatusBar,
-  StyleSheet, Text,
+  StyleSheet,
   useColorScheme,
 } from 'react-native';
 
@@ -21,13 +21,13 @@ function App(): React.JSX.Element {
 
   return (
     <GestureHandlerRootView>
-        <SafeAreaView style={backgroundStyle}>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-          <Navigator />
-        </SafeAreaView>
+      <SafeAreaView style={backgroundStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Navigator />
+      </SafeAreaView>
     </GestureHandlerRootView>
   );
 }
