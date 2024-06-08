@@ -1,15 +1,23 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import useTimeAgo from "../../hooks/useTimeAgo.ts";
-import {Article} from "../../types/Article.ts";
-import React from "react";
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import useTimeAgo from '../../hooks/useTimeAgo.ts';
+import {Article} from '../../types/Article.ts';
+import React from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 interface Props {
-  article: Article,
+  article: Article;
+  //TODO id => id useRoute
+  id: any;
 }
-export const ListItem: React.FC<Props> = ({article}) => {
+export const ListItem: React.FC<Props> = ({article, id}) => {
   const timeAgo = useTimeAgo(article.date);
+  //TODO typize
+  const navigation = useNavigation<any>();
+
   return (
-    <View style={styles.listItem}>
+    <TouchableOpacity
+      style={styles.listItem}
+      onPress={() => navigation.navigate('Post', {id: id})}>
       <Image
         source={{
           uri: article.imgSrc,
@@ -25,7 +33,7 @@ export const ListItem: React.FC<Props> = ({article}) => {
         </Text>
         <Text style={styles.time}>{timeAgo}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -44,16 +52,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: '600',
   },
   content: {
     fontSize: 16,
-    fontWeight: 300,
+    fontWeight: '300',
     marginTop: 10,
   },
   time: {
     fontSize: 12,
-    fontWeight: 200,
+    fontWeight: '200',
     marginTop: 5,
     color: '#8E949A',
   },

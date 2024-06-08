@@ -1,50 +1,61 @@
-import {FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {SearchBar} from '../../components/searchBar/SearchBar.tsx';
 import {RoundButton} from '../../components/roundButton/RoundButton.tsx';
 import {NoResults} from '../../components/noResults/NoResults.tsx';
-import {useEffect, useState} from 'react';
-import {MockApiData} from '../../api/MockApi.ts';
+import {useEffect} from 'react';
 import {ListItem} from '../../components/listItem/ListItem.tsx';
-import {Article} from '../../types/Article.ts';
+import {useAppDispatch, useAppSelector} from '../../store/hooks/redux.ts';
+import {fetchNews} from '../../store/hooks/ActionCreator.ts';
 
 export const HomeView = () => {
-  const [articles, setArticles] = useState<Article[] | []>([]);
+  const dispatch = useAppDispatch();
+  const {news, isLoading, error} = useAppSelector(state => state.newsReducer);
 
   useEffect(() => {
-    setArticles(MockApiData);
-  }, []);
+    dispatch(fetchNews());
+  }, [dispatch]);
 
   return (
-    <View style={styles.homeView}>
+    <SafeAreaView style={{flex: 1}}>
       <FlatList
+        style={styles.homeView}
         ListHeaderComponent={() => (
           <View style={styles.topBar}>
             <SearchBar />
             <RoundButton variant="plus" />
           </View>
         )}
-        data={articles}
-        keyExtractor={item => item.key.toString()}
-        renderItem={({item}) => <ListItem article={item} />}
+        data={news}
+        keyExtractor={item => item.id.toString()}
+        renderItem={({item}) => <ListItem article={item} id={item.id} />}
         ItemSeparatorComponent={() => <View style={{height: 40}} />}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={() => (
-          <View style={styles.noRes}>
-            <NoResults />
-          </View>
-        )}
-        refreshControl={
-          <RefreshControl refreshing={true} onRefresh={() => {}} />
-        }
-        onEndReached={() => {
-          alert('ALEPT');
+        ListEmptyComponent={() => {
+          return (
+            <View style={styles.noRes}>
+              <NoResults />
+            </View>
+          );
         }}
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => {
+              dispatch(fetchNews());
+            }}
+          />
+        }
+        onEndReached={() => {}}
         onEndReachedThreshold={0.2}
-        // ListFooterComponent={(isMentorsLoading && mentorsData.length > 0 && (
-        //     <Loader isFullScreen={false} loaderSize={LOADER_SIZE_SMALL} />
-        // ))}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -61,7 +72,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   noRes: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },

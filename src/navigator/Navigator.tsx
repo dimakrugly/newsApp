@@ -4,16 +4,26 @@ import {
   NavigationContainer,
   useNavigationContainerRef,
 } from '@react-navigation/native';
+import {Post} from '../screen/post/Post.tsx';
+
 const Stack = createNativeStackNavigator<any>();
 
 export const Navigator = () => {
-
-    const navigationRef = useNavigationContainerRef()
+  const navigationRef = useNavigationContainerRef();
 
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} options={{headerShown: false}}/>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Post"
+          component={Post}
+          options={{headerShown: false}}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

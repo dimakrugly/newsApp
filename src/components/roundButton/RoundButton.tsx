@@ -3,17 +3,19 @@ import {StyleSheet, TouchableOpacity} from 'react-native';
 import Plus from '../../assets/icons/Plus.svg';
 import Arrow from '../../assets/icons/Arrow.svg';
 
-
 interface Props {
   variant: 'plus' | 'arrow';
+  onPress: () => void;
 }
 
-export const RoundButton: React.FC<Props> = ({variant}) => (
-  <TouchableOpacity style={styles.roundButton}>
-    {variant === 'plus' && <Plus width={30} height={30} />}
-    {variant === 'arrow' && <Arrow width={30} height={30} />}
-  </TouchableOpacity>
-);
+export const RoundButton: React.FC<Props> = ({variant, onPress}) => {
+  return (
+    <TouchableOpacity style={styles.roundButton} onPress={onPress}>
+      {variant === 'plus' && <Plus width={30} height={30} />}
+      {variant === 'arrow' && <Arrow width={30} height={30} />}
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   roundButton: {
