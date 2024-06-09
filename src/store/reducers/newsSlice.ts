@@ -1,17 +1,19 @@
 import { Article } from '../../types/Article.ts';
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {addPost, fetchNews, removePost} from '../actionCreators/ActionCreator.ts';
 
 interface NewsState {
     news: Article[];
     isLoading: boolean;
     error: string;
+    query: string;
 }
 
 const initialState: NewsState = {
     news: [],
     isLoading: false,
     error: '',
+    query: '',
 };
 
 export const newsSlice = createSlice({
@@ -38,7 +40,12 @@ export const newsSlice = createSlice({
     },
     initialState,
     name: 'news',
-    reducers: {}
+    reducers: {
+        setQuery: (state, action: PayloadAction<string>) => {
+            state.query = action.payload;
+        }
+    }
 });
 
+export const { setQuery } = newsSlice.actions;
 export default newsSlice.reducer;

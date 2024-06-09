@@ -7,10 +7,20 @@ const selectNews = (state: { newsReducer: { news: Article[]; }; }) => state.news
 
 
 const selectArticleId = (state: RootState, articleId: string) => articleId;
-
-// Create a memoized selector to select the article by ID
+export const selectQuery = (state: RootState) => state.newsReducer.query;
 export const selectArticleById = createSelector(
     [selectNews, selectArticleId],
     (news, articleId) => news.find((article) => article.id === articleId)
 );
 
+export const selectFilteredData = createSelector(
+    [selectQuery, selectNews],
+    (query, data) => {
+        if (query) {
+            const regex = new RegExp(query, 'i');
+            return data.filter(item => regex.test(item.title) || regex.test(item.content));
+        }
+
+        return data;
+    }
+);

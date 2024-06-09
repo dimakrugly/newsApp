@@ -2,9 +2,9 @@ import {
   FlatList,
   RefreshControl,
   SafeAreaView,
-  Text,
   View,
   ListRenderItemInfo,
+  ActivityIndicator,
 } from 'react-native';
 import {SearchBar} from '../../components/searchBar/SearchBar.tsx';
 import {RoundButton} from '../../components/roundButton/RoundButton.tsx';
@@ -12,7 +12,7 @@ import {NoResults} from '../../components/noResults/NoResults.tsx';
 import {ListItem} from '../../components/listItem/ListItem.tsx';
 import {Article} from '../../types/Article.ts';
 import React, {useCallback} from 'react';
-import {styles} from './Home.styles.ts';
+import {bottomSheetCustomStyles, styles} from './Home.styles.ts';
 import {HomeViewProps} from './Home.types.ts';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {SquareButton} from '../../components/squareButton/SquareButton.tsx';
@@ -26,6 +26,8 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onModalOpen,
   refRBSheet,
   onArticleDelete,
+  query,
+  handleQueryChange,
 }) => {
   const renderItem = useCallback(
     ({item}: ListRenderItemInfo<Article>) => (
@@ -41,14 +43,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <View style={styles.topBar}>
+        <SearchBar value={query} onChangeText={handleQueryChange} />
+        <RoundButton variant="plus" onPress={onGoToNewPost} />
+      </View>
       <FlatList
         style={styles.homeView}
-        ListHeaderComponent={() => (
-          <View style={styles.topBar}>
-            <SearchBar />
-            <RoundButton variant="plus" onPress={onGoToNewPost} />
-          </View>
-        )}
         data={news}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
@@ -56,7 +56,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => {
           return isLoading ? (
-            <Text>Loading</Text>
+            <ActivityIndicator size="large" />
           ) : (
             <View style={styles.noRes}>
               <NoResults />
@@ -73,14 +73,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
         ref={refRBSheet}
         useNativeDriver={false}
         height={250}
-        customStyles={{
-          wrapper: {
-            backgroundColor: 'rgba(0,0,0,0.33)',
-          },
-          container: {
-            borderRadius: 25,
-          },
-        }}
+        customStyles={bottomSheetCustomStyles}
         customModalProps={{
           animationType: 'slide',
           statusBarTranslucent: true,

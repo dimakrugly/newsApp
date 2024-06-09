@@ -11,6 +11,8 @@ export const Home = () => {
     onModalOpen,
     refRBSheet,
     onArticleDelete,
+    query,
+    handleQueryChange,
   } = useHome();
   return (
     <HomeView
@@ -22,6 +24,8 @@ export const Home = () => {
       onModalOpen={onModalOpen}
       refRBSheet={refRBSheet}
       onArticleDelete={onArticleDelete}
+      query={query}
+      handleQueryChange={handleQueryChange}
     />
   );
 };

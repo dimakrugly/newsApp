@@ -1,6 +1,7 @@
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../types/Navigator.ts';
 import {Article} from '../../types/Article.ts';
+import * as trace_events from "trace_events";
 
 export type HomeScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -16,4 +17,6 @@ export interface HomeViewProps {
   onModalOpen: (id: string) => void;
   refRBSheet: any;
   onArticleDelete: () => void;
+  query: string;
+  handleQueryChange: (text: string) => void;
 }

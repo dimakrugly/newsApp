@@ -1,11 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {RoundButton} from '../roundButton/RoundButton.tsx';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback} from 'react';
+import {HeaderProps} from './Header.types.ts';
+import {styles} from './Header.styles.ts';
 
-interface HeaderProps {
-  text: string;
-}
 export const Header: React.FC<HeaderProps> = ({text}) => {
   const navigation = useNavigation();
 
@@ -20,19 +19,3 @@ export const Header: React.FC<HeaderProps> = ({text}) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  headerContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 22,
-    height: 90,
-    gap: 5,
-  },
-  headerText: {
-    fontSize: 20,
-    flex: 1,
-    textAlign: 'center',
-  },
-});

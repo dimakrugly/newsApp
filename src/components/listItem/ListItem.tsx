@@ -1,17 +1,15 @@
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import useTime from '../../hooks/useTime.ts';
-import {Article} from '../../types/Article.ts';
 import React from 'react';
+import {ListItemProps} from './ListItem.types.ts';
+import {styles} from './ListItem.styles.ts';
 
-interface Props {
-  article: Article;
-  id: any;
-  onPress: () => void;
-  onLongPress: () => void;
-}
-export const ListItem: React.FC<Props> = ({article, onPress, onLongPress}) => {
+export const ListItem: React.FC<ListItemProps> = ({
+  article,
+  onPress,
+  onLongPress,
+}) => {
   const {timeAgo} = useTime(article.date);
-  //TODO typize
 
   return (
     <TouchableOpacity
@@ -36,33 +34,3 @@ export const ListItem: React.FC<Props> = ({article, onPress, onLongPress}) => {
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  listItem: {
-    height: 304,
-    gap: 18,
-  },
-  image: {
-    height: 195,
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  textContainer: {
-    paddingHorizontal: 18,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  content: {
-    fontSize: 16,
-    fontWeight: '300',
-    marginTop: 10,
-  },
-  time: {
-    fontSize: 12,
-    fontWeight: '200',
-    marginTop: 5,
-    color: '#8E949A',
-  },
-});

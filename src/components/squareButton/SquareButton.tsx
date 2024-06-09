@@ -1,13 +1,9 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {SquareButtonProps} from './SquareButton.types.ts';
+import {styles} from './SquareButton.styles.ts';
 
-interface Props {
-  title: string;
-  variant: 'red' | 'blue';
-  onPress: () => void;
-  disabled?: boolean;
-}
-export const SquareButton: React.FC<Props> = ({
+export const SquareButton: React.FC<SquareButtonProps> = ({
   title,
   variant,
   onPress,
@@ -26,26 +22,3 @@ export const SquareButton: React.FC<Props> = ({
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  button: {
-    height: 63,
-    borderRadius: 10,
-    color: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  red: {
-    backgroundColor: '#FF6363',
-  },
-  blue: {
-    backgroundColor: '#456EFE',
-  },
-  disabled: {
-    backgroundColor: 'hsla(227,99%,63%,0.37)',
-  },
-  text: {
-    color: 'white',
-    fontSize: 24,
-  },
-});
