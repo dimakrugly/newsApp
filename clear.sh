@@ -26,7 +26,6 @@ function ios() {
    && cd ios \
    && pod install \
    && cd ..
-   react-native run-ios --scheme TruGreatStaging
 }
 
 function android(){
@@ -38,7 +37,6 @@ function android(){
   && sudo rm -rf build \
   && cd ..
   npmInstall
-  react-native run-android --variant=trugreatStagingDebug --appIdSuffix staging
 }
 
 function runDefault() {

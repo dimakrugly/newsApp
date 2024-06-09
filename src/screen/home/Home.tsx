@@ -4,6 +4,7 @@ import {useHome} from './hooks/useHome.ts';
 export const Home = () => {
   const {
     onGoToArticle,
+    onGoToNewPost,
     news,
     isLoading,
     error,
@@ -17,6 +18,7 @@ export const Home = () => {
       isLoading={isLoading}
       error={error}
       onGoToArticle={onGoToArticle}
+      onGoToNewPost={onGoToNewPost}
       onModalOpen={onModalOpen}
       refRBSheet={refRBSheet}
       onArticleDelete={onArticleDelete}

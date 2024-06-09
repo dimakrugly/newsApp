@@ -1,5 +1,4 @@
 import {
-  Button,
   FlatList,
   RefreshControl,
   SafeAreaView,
@@ -23,6 +22,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   isLoading,
   error,
   onGoToArticle,
+  onGoToNewPost,
   onModalOpen,
   refRBSheet,
   onArticleDelete,
@@ -41,13 +41,12 @@ export const HomeView: React.FC<HomeViewProps> = ({
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Button title="delete" onPress={() => refRBSheet.current.open()} />
       <FlatList
         style={styles.homeView}
         ListHeaderComponent={() => (
           <View style={styles.topBar}>
             <SearchBar />
-            <RoundButton variant="plus" onPress={() => {}} />
+            <RoundButton variant="plus" onPress={onGoToNewPost} />
           </View>
         )}
         data={news}

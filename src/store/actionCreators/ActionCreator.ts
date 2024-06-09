@@ -1,5 +1,6 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import {Article} from "../../types/Article.ts";
 
 export const fetchNews = createAsyncThunk(
     'news/fetchAll',
@@ -12,11 +13,19 @@ export const fetchNews = createAsyncThunk(
 export const removePost = createAsyncThunk(
     'news/removePost',
     async (postId: string, thunkApi) => {
-        console.log('id', postId)
-       try {
-           await axios.delete(`http://localhost:3000/news/${postId}`);
+        await axios.delete(`http://localhost:3000/news/${postId}`);
 
-       } catch (e) {console.log(e)}
         return postId;
     }
 );
+
+
+export const addPost = createAsyncThunk(
+    'news/addPost',
+    async (articleData: Article, thunkApi ) => {
+        await axios.post('http://localhost:3000/news', articleData);
+
+        return articleData;
+    }
+);
+

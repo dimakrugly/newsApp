@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native';
 import {Post} from '../screen/post/Post.tsx';
 import {RootStackParamList} from '../types/Navigator.ts';
+import {NewPost} from '../screen/newPost/NewPost.tsx';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -23,6 +24,11 @@ export const Navigator = () => {
         <Stack.Screen
           name="Post"
           component={Post}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NewPost"
+          component={NewPost}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

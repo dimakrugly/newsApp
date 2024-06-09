@@ -1,6 +1,6 @@
 import { Article } from '../../types/Article.ts';
 import { createSlice } from '@reduxjs/toolkit';
-import {fetchNews, removePost} from '../actionCreators/ActionCreator.ts';
+import {addPost, fetchNews, removePost} from '../actionCreators/ActionCreator.ts';
 
 interface NewsState {
     news: Article[];
@@ -31,6 +31,9 @@ export const newsSlice = createSlice({
         });
         builder.addCase(removePost.fulfilled, (state, action) => {
             state.news = state.news.filter(post => post.id !== action.payload);
+        });
+        builder.addCase(addPost.fulfilled, (state, action) => {
+            state.news = state.news.concat(action.payload);
         });
     },
     initialState,

@@ -25,6 +25,10 @@ export const useHome = () => {
     [navigation],
   );
 
+  const onGoToNewPost = useCallback(() => {
+    navigation.navigate('NewPost');
+  }, [navigation]);
+
   const onArticleDelete = useCallback(() => {
     if (selectedArticle) {
       dispatch(removePost(selectedArticle));
@@ -42,6 +46,7 @@ export const useHome = () => {
 
   return {
     onGoToArticle,
+    onGoToNewPost,
     news,
     isLoading,
     error,

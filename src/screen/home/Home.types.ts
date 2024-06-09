@@ -12,6 +12,7 @@ export interface HomeViewProps {
   isLoading: boolean;
   error: string;
   onGoToArticle: (id: string) => void;
+  onGoToNewPost: () => void;
   onModalOpen: (id: string) => void;
   refRBSheet: any;
   onArticleDelete: () => void;
