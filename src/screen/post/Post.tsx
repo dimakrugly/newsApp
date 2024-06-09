@@ -1,18 +1,13 @@
-import {PostView} from './PostView.tsx';
-import {useRoute} from '@react-navigation/native';
-import {useAppSelector} from '../../store/hooks/redux.ts';
-import {selectArticleById} from '../../store/selectors/selectors.ts';
+import {PostView} from './Post.view.tsx';
+import {usePostData} from './hooks/usePostData.ts';
 
 export const Post = () => {
-  const route = useRoute();
-  const {id} = route.params;
-
-  const article = useAppSelector(state => selectArticleById(state, id));
+  const {timeCreated, article} = usePostData();
 
   return (
     <PostView
       title={article?.title || ''}
-      date={article?.date || ''}
+      date={timeCreated}
       content={article?.content || ''}
       imgSrc={article?.imgSrc || ''}
     />

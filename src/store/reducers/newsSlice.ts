@@ -1,6 +1,6 @@
 import { Article } from '../../types/Article.ts';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchNews } from '../hooks/ActionCreator.ts';
+import { createSlice } from '@reduxjs/toolkit';
+import {fetchNews, removePost} from '../actionCreators/ActionCreator.ts';
 
 interface NewsState {
     news: Article[];
@@ -28,6 +28,9 @@ export const newsSlice = createSlice({
         builder.addCase(fetchNews.rejected, (state, action) => {
             state.isLoading = false;
             state.error = action.error.message || 'Failed to fetch news';
+        });
+        builder.addCase(removePost.fulfilled, (state, action) => {
+            state.news = state.news.filter(post => post.id !== action.payload);
         });
     },
     initialState,

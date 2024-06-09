@@ -1,23 +1,23 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import useTimeAgo from '../../hooks/useTimeAgo.ts';
+import useTime from '../../hooks/useTime.ts';
 import {Article} from '../../types/Article.ts';
 import React from 'react';
-import {useNavigation} from '@react-navigation/native';
 
 interface Props {
   article: Article;
-  //TODO id => id useRoute
   id: any;
+  onPress: () => void;
+  onLongPress: () => void;
 }
-export const ListItem: React.FC<Props> = ({article, id}) => {
-  const timeAgo = useTimeAgo(article.date);
+export const ListItem: React.FC<Props> = ({article, onPress, onLongPress}) => {
+  const {timeAgo} = useTime(article.date);
   //TODO typize
-  const navigation = useNavigation<any>();
 
   return (
     <TouchableOpacity
       style={styles.listItem}
-      onPress={() => navigation.navigate('Post', {id: id})}>
+      onPress={onPress}
+      onLongPress={onLongPress}>
       <Image
         source={{
           uri: article.imgSrc,

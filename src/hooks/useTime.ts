@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import moment from 'moment';
 
-const useTimeAgo = (timestamp: number) => {
+const useTime = (timestamp: number) => {
   const [timeAgo, setTimeAgo] = useState('');
 
   useEffect(() => {
@@ -48,7 +48,9 @@ const useTimeAgo = (timestamp: number) => {
     };
   }, [timestamp]);
 
-  return timeAgo;
+  const timeCreated = moment(timestamp).format('dddd, D MMMM YYYY');
+
+  return {timeAgo, timeCreated};
 };
 
-export default useTimeAgo;
+export default useTime;

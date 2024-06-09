@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 22,
     height: 90,
+    gap: 5,
   },
   headerText: {
     fontSize: 20,
     flex: 1,
     textAlign: 'center',
-    backgroundColor: 'red',
   },
 });

@@ -5,8 +5,9 @@ import {
   useNavigationContainerRef,
 } from '@react-navigation/native';
 import {Post} from '../screen/post/Post.tsx';
+import {RootStackParamList} from '../types/Navigator.ts';
 
-const Stack = createNativeStackNavigator<any>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export const Navigator = () => {
   const navigationRef = useNavigationContainerRef();
