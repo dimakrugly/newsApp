@@ -1,42 +1,32 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React from 'react';
+import {StatusBar, useColorScheme} from 'react-native';
 
-import React, {useEffect, useState} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {Navigator} from './src/navigator/Navigator.tsx';
 
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {User, onAuthStateChanged} from 'firebase/auth';
-import {Login} from './src/screens/Login/Login.tsx';
-import {FIREBASE_AUTH} from './firebaseConfig.ts';
-import {HomeScreen} from './src/screens/HomeScreen/HomeScreen.tsx';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
+import {setupStore} from './src/store/store.ts';
 
-const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
-  const [user, setUser] = useState<User | null>(null);
+  const isDarkMode = useColorScheme() === 'dark';
 
-  useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, usr => {
-      setUser(usr);
-    });
-  }, []);
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  };
+
+  const store = setupStore();
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
-        {user ? (
-          <Stack.Screen name='HomeScreen' component={HomeScreen} />
-        ) : (
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{headerShown: false}}
-          />
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <GestureHandlerRootView>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <Provider store={store}>
+        <Navigator />
+      </Provider>
+    </GestureHandlerRootView>
   );
 }
 
