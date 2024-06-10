@@ -28,6 +28,7 @@ export const HomeView: React.FC<HomeViewProps> = ({
   onArticleDelete,
   query,
   handleQueryChange,
+  onFetchNews,
 }) => {
   const renderItem = useCallback(
     ({item}: ListRenderItemInfo<Article>) => (
@@ -40,6 +41,17 @@ export const HomeView: React.FC<HomeViewProps> = ({
     ),
     [onGoToArticle, onModalOpen],
   );
+  const Separator = useCallback(() => <View style={{height: 40}} />, []);
+
+  const ListEmptyComponent = useCallback((loading: boolean) => {
+    return loading ? (
+      <ActivityIndicator size="large" />
+    ) : (
+      <View style={styles.noRes}>
+        <NoResults />
+      </View>
+    );
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -52,19 +64,11 @@ export const HomeView: React.FC<HomeViewProps> = ({
         data={news}
         keyExtractor={item => item.id.toString()}
         renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={{height: 40}} />}
+        ItemSeparatorComponent={Separator}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={() => {
-          return isLoading ? (
-            <ActivityIndicator size="large" />
-          ) : (
-            <View style={styles.noRes}>
-              <NoResults />
-            </View>
-          );
-        }}
+        ListEmptyComponent={ListEmptyComponent(isLoading)}
         refreshControl={
-          <RefreshControl refreshing={false} onRefresh={() => {}} />
+          <RefreshControl refreshing={false} onRefresh={onFetchNews} />
         }
         onEndReached={() => {}}
         onEndReachedThreshold={0.2}

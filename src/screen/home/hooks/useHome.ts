@@ -31,6 +31,11 @@ export const useHome = () => {
     dispatch(fetchNews());
   }, [dispatch]);
 
+  const onFetchNews = useCallback(() => {
+    dispatch(fetchNews());
+    dispatch(setQuery(''));
+  }, [dispatch]);
+
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const onGoToArticle = useCallback(
@@ -70,5 +75,6 @@ export const useHome = () => {
     refRBSheet,
     query,
     handleQueryChange,
+    onFetchNews,
   };
 };

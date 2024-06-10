@@ -13,6 +13,7 @@ export const Home = () => {
     onArticleDelete,
     query,
     handleQueryChange,
+    onFetchNews,
   } = useHome();
   return (
     <HomeView
@@ -26,6 +27,7 @@ export const Home = () => {
       onArticleDelete={onArticleDelete}
       query={query}
       handleQueryChange={handleQueryChange}
+      onFetchNews={onFetchNews}
     />
   );
 };

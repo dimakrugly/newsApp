@@ -19,4 +19,5 @@ export interface HomeViewProps {
   onArticleDelete: () => void;
   query: string;
   handleQueryChange: (text: string) => void;
+  onFetchNews: () => void;
 }
